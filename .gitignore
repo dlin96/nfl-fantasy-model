@@ -1,0 +1,17 @@
+**/__pycache__
+**/.env
+**/.idea
+**/.vscode
+**/output
+**/build
+**/dist
+*.egg-info
+/data/
+/models/
+.DS_Store
+cookie_cutter_dir
+nfldb2019.sql.zip
+**/.ipynb_checkpoints
+ffmdl/models/**
+ffmdl/data/**
+**/venv/**
