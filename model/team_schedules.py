@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 
 FORMAT = "%(asctime)-15s : %(message)s"
 logging.basicConfig(format=FORMAT)
-sched_logger = logging.getLogger("sched_logger")
+sched_logger = logging.getLogger(__name__)
 sched_logger.setLevel(logging.INFO)
 
 with open("consts.json", "r") as fp:
