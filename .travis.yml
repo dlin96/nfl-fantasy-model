@@ -1,2 +1,3 @@
 language: python
-script: pytest model/tests
+before_install: python setup.py install
+script: pytest tests

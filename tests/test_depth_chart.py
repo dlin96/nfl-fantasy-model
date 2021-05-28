@@ -1,10 +1,9 @@
 import unittest
+import src.common as common
 import pickle
 import random
-import sys
 
-sys.path.append("model/depth_chart")
-import depth_chart
+import src.data.depth_chart as depth_chart
 
 
 class DepthChartTestCase(unittest.TestCase):
@@ -28,8 +27,8 @@ class DepthChartTestCase(unittest.TestCase):
 
     @unittest.skip
     def test_create_depth_chart(self):
-        i = random.randrange(0, len(depth_chart.team_names))
-        depth_chart.create_depth_chart(depth_chart.team_names[i])
+        i = random.randrange(0, len(common.TEAM_NAMES))
+        depth_chart.create_depth_chart(common.TEAM_NAMES[i])
 
 
 if __name__ == '__main__':

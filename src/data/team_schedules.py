@@ -1,27 +1,32 @@
 import json
+import src.common as common
 import logging
-import requests
-import re
-import redis
+import os
+from dotenv import load_dotenv
 import time
+
+import requests
+import redis
 
 from bs4 import BeautifulSoup
 
-# import mongodb_ops
 
 FORMAT = "%(asctime)-15s : %(message)s"
 logging.basicConfig(format=FORMAT)
 sched_logger = logging.getLogger(__name__)
 sched_logger.setLevel(logging.INFO)
 
-with open("consts.json", "r") as fp:
-    team_consts = json.loads(fp.read())
-db = redis.Redis("localhost", 6379, db=1)
+def init():
+    load_dotenv()
+    host = os.getenv("redis_host")
+    port = os.getenv("redis_port")
+    db_num = os.getenv("db_num")
+    db = redis.Redis(host, port, db=db_num)
 
 
 def create_url(team_name, ending):
-    if team_name in team_consts['EXCEPTION_DICT']:
-        team_name = team_consts['EXCEPTION_DICT'][team_name]
+    if team_name in common.exception_dict:
+        team_name = common.EXCEPTION_DICT[team_name]
     url = "https://www.{}.com/" + ending + "/"
     return url.format(team_name)
 
@@ -39,9 +44,9 @@ def scrape_schedule(teamname):
     season_type = "d3-o-section-title"
     team_sched = []
 
-    sched_logger.info("teamname: {}".format(teamname))
+    sched_logger.info("teamname: %s", teamname)
     url = create_url(teamname, "schedule")
-    sched_logger.info("url: {}".format(url))
+    sched_logger.info("url: %s", url)
     response = requests.get(url)
     if response.status_code == 200:
         soup = BeautifulSoup(response.text, "html.parser")
@@ -51,7 +56,7 @@ def scrape_schedule(teamname):
             span = item.find("span")
             if span:
                 text = span.text.strip()
-                if text == "REGULAR SEASON" or text == "PRESEASON":
+                if text in ("REGULAR SEASON", "PRESEASON"):
                     seas_types.append(text)
 
         sched_logger.info(seas_types)
@@ -66,17 +71,16 @@ def scrape_schedule(teamname):
 
         if seas_types[0] == "PRESEASON":
             return team_sched[-17:]
-        else:
-            return team_sched[:17]
-    else:
-        sched_logger.error("STATUS CODE: {}".format(response.status_code))
-        sched_logger.error("Try again later for team: {}".format(teamname))
+        return team_sched[:17]
+    sched_logger.error("STATUS CODE: %d", response.status_code)
+    sched_logger.error("Try again later for team: %s", teamname)
+    return None
 
 
 def insert_sched(schedule_dict):
     """
     :function_name: insert_sched
-    :param schedule_bson: bson obj of team's schedule
+    :param schedule_dict: bson obj of team's schedule
     :return: None
     """
 
@@ -86,13 +90,12 @@ def insert_sched(schedule_dict):
 
 def update_scheds():
     sched_dict = {}
-    for team_name in team_consts['TEAM_NAMES']:
+    for team_name in common.TEAM_NAMES:
         sched_dict[team_name] = scrape_schedule(team_name)
         time.sleep(2)
-    sched_logger.info("schedule_dict: {}".format(sched_dict))
+    sched_logger.info("schedule_dict: %s", sched_dict)
     insert_sched(sched_dict)
 
 
 if __name__ == "__main__":
     update_scheds()
-    # sched_logger.info(scrape_schedule("patriots"))

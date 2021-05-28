@@ -1,0 +1,10 @@
+**/__pycache__
+**/.env
+**/.idea
+**/.vscode
+**/output
+**/build
+**/dist
+*.egg-info
+/data/
+/models/
