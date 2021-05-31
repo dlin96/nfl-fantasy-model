@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dlin96/sport-site.svg?branch=master)](https://travis-ci.org/dlin96/sport-site)
+[![Build Status](https://travis-ci.com/dlin96/nfl-fantasy-model.svg?branch=master)](https://travis-ci.com/dlin96/nfl-fantasy-model)
 
 ## Model
 
