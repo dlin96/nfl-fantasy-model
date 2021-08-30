@@ -1,5 +1,5 @@
 import json
-import src.common as common
+import ffmdl.common as common
 import logging
 import os
 from dotenv import load_dotenv

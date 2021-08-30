@@ -1,5 +1,5 @@
 import functools
-import src.common as common
+import ffmdl.common as common
 import re
 import collections
 import json
