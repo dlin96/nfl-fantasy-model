@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name='src',
+setup(name='ffmdl',
       version='0.0.1',
       description='Fantasy football stat modeling',
       author='David Lin',

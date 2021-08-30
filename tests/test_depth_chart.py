@@ -27,8 +27,8 @@ class DepthChartTestCase(unittest.TestCase):
 
     @unittest.skip
     def test_create_depth_chart(self):
-        i = random.randrange(0, len(common.TEAM_NAMES))
-        depth_chart.create_depth_chart(common.TEAM_NAMES[i])
+        i = random.randrange(0, len(common.team_names))
+        depth_chart.create_depth_chart(common.team_names[i])
 
 
 if __name__ == '__main__':

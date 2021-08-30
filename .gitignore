@@ -8,3 +8,7 @@
 *.egg-info
 /data/
 /models/
+.DS_Store
+cookie_cutter_dir
+ffmdl/
+nfldb2019.sql.zip
