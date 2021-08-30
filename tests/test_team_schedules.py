@@ -1,5 +1,5 @@
 import unittest
-from src.data import team_schedules
+from ffmdl.data import team_schedules
 
 
 class TeamScheduleTest(unittest.TestCase):

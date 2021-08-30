@@ -1,9 +1,9 @@
 import unittest
-import src.common as common
+import ffmdl.common as common
 import pickle
 import random
 
-import src.data.depth_chart as depth_chart
+import ffmdl.data.depth_chart as depth_chart
 
 
 class DepthChartTestCase(unittest.TestCase):

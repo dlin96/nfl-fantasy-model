@@ -1,9 +1,9 @@
 import unittest
-from src.features.build_features import build_base_df
+from ffmdl.features.build_features import build_base_df
 
 
 class FeaturesTest(unittest.TestCase):
-    # @unittest.skip
+    @unittest.skip
     def test_base_feats(self):
         df = build_base_df()
         self.assertIsNotNone(df)
